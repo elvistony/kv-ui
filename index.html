@@ -1,0 +1,178 @@
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="KV - Balance API">
+    <meta name="author" content="">
+    <link rel="icon" href="/assets/favicon/favicon.ico">
+
+    <title>KV Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <style>
+      html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: flex;
+      -ms-flex-align: center;
+      -ms-flex-pack: center;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      background-color: #f5f5f5;
+    }
+
+    .form-signin {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+    }
+    .form-signin .checkbox {
+      font-weight: 400;
+    }
+    .form-signin .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .form-signin .form-control:focus {
+      z-index: 2;
+    }
+    .form-signin input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    </style>
+  </head>
+
+  <body class="text-center">
+    <form class="form-signin">
+      <img class="mb-4" src="/assets/favicon/android-chrome-512x512.png" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">KV Login</h1>
+      <label for="inputEmail" class="sr-only">Username</label>
+      <input type="username" id="uname" class="form-control mb-2" placeholder="Username" required="" autofocus="">
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="password" class="form-control mb-2" placeholder="Password" required="">
+      <div class="text-left" style="padding-left: 20px;">
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" name="show-pass"> Show Password
+          </label>
+        </div>
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" checked id="same-username"> Use username as password
+          </label>
+        </div>
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" checked value="remember-me"> Remember me
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-lg btn-primary btn-block" id="loginnow" type="button">Login</button>
+      <p class="mt-5 p-5 text-muted">Hosted on Github</p>
+    </form>
+
+<script>
+  var same_as_username = document.getElementById('same-username')
+  var username =  document.getElementById('uname')
+  var password = document.getElementById('password')
+ username.addEventListener('input',()=>{
+    if(same_as_username.checked){
+      password.value =username.value
+    }
+  })
+
+  document.getElementById("loginnow").addEventListener('click',()=>{
+    setTimeout(()=>{
+      save2Cookies();
+      performFetch();
+    },2000)
+  })
+
+  document.getElementsByName('show-pass')[0].addEventListener('click',()=>{
+    if(document.getElementsByName('show-pass')[0].checked){
+      password.setAttribute('type','text')
+    }else{
+      password.setAttribute('type','password')
+    }
+  })
+
+  function setCookie(cname, cvalue, exdays=365) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+    
+  function performFetch(){
+    var fetchUsage = new XMLHttpRequest();
+    var URL = "https://script.google.com/macros/s/AKfycby_XzX-cqB5DQtmE03XAqUYJv9_RF15JeXUZB56RKUUEoDMmaGqoJafl1tQD3bkZCr7/exec?u=USERNAME&p=PASSWORD".replace("USERNAME",username.value).replace("PASSWORD",password.value);
+    //console.log(URL);
+    fetchUsage.open("GET",URL);
+    fetchUsage.send();
+    fetchUsage.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(JSON.parse(this.responseText));
+        setCookie("data",this.responseText)
+        document.location.replace("/dashboard");
+      }
+    };
+  }
+
+  function save2Cookies(){
+    var store = JSON.stringify({
+      "username":username.value,
+      "password":password.value
+    });
+    console.log(store);
+    setCookie("storedCreds",store);
+  }
+
+  var credentials = getCookie("storedCreds");
+  if(credentials){
+    cred = JSON.parse(credentials)
+    username.value = cred['username'];
+    password.value = cred['password'];
+  }
+  
+</script>
+
+</body></html>
