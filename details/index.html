@@ -6,7 +6,7 @@
     <meta name="author" content="Elvis Tony">
     <link rel="icon" href="../assets/favicon/favicon.ico">
 
-    <title>KV | Dashboard</title>
+    <title>KV | Advanced</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
@@ -20,15 +20,15 @@
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
       <h5 class="my-0 mr-md-auto font-weight-normal">KV - Dashboard<br><small class="float-right user" name="uname">user</small></h5>
       <nav class="my-2 my-md-0 mr-md-3">
-        <a class="btn btn-sm p-2 btn-primary  active" href="#">Dashboard</a>
-        <a class="btn btn-sm p-2 text-dark" href="../details/">Details</a>
+        <a class="btn btn-sm p-2 text-dark active" href="../dashboard/">Dashboard</a>
+        <a class="btn btn-primary btn-sm p-2" href="#">Details</a>
         <a class="btn btn-sm btn-outline-primary" href="../">Logout</a>
       </nav>
-      
+
     </div>
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-      <h1 class="display-4">Dashboard</h1>
+      <h1 class="display-4">Details</h1>
       <h6><span class="badge bg-info text-white" name="account"></span> - <span class="badge bg-info text-white" name="phone"></span></h6>
       <p class="lead"></p>
     </div>
@@ -37,60 +37,40 @@
       <div class="card-deck mb-3 text-center">
         <div class="card mb-4 box-shadow">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Plan Validity</h4>
+            <button class="btn small btn-sm float-right" data-toggle="tooltip" data-placement="top" data-html="true" name="data_left" title="Enable a reboot schedule (midnight) for your router to get more insights!">Tip</button>
+            <h4 class="my-0 font-weight-normal">Weekly Usage</h4>
+            
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title"> <span name="days_left" data-toggle="tooltip" data-placement="top" data-html="true" class="text-info">95</span><small class="text-muted">days</small></h1>
-            <table class="table">
-              <tr>
-                <td>Total Days:</td>
-                <td><h3><span name="days_total"></span><small>days</small></h3></td>
-              </tr>
-              <tr>
-                <td>Days Consumed:</td>
-                <td><h3><span name="days_used"></span><small>days</small></h3></td>
-              </tr>
-            </table>
-            <!-- <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button> -->
+            <canvas id="myBarChart" width="100%" height="40"></canvas>
+            <p class="text-small small text-muted">Usage depicted is based on session usage and may not reflect accurate 'per day' consumptions.</p>
           </div>
         </div>
-        <div class="card mb-4 box-shadow">
+       <div class="card mb-4 box-shadow">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Data Remaining</h4>
-          </div>
-          <div class="card-body">
-            <h1  class="card-title pricing-card-title"><span data-toggle="tooltip" data-placement="top" data-html="true" name="data_left" title="Loading.." class="text-info"></span><small class="text-muted">GB</small></h1>
-            <table class="table">
-              <tr>
-                <td>Total Data:</td>
-                <td><h3><span name="data_total"></span><small>GB</small>
-                </h3></td>
-              </tr>
-              <tr>
-                <td>Data Consumed:</td>
-                <td><h3><span name="data_used"></span><small>GB</small></h3></td>
-              </tr>
-            </table>
-            <!-- <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button> -->
-          </div>
-        </div>
-        <div class="card mb-4 box-shadow">
-          <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Modem Status</h4>
+            <h4 class="my-0 font-weight-normal">Plan Details</h4>
           </div>
           <div class="card-body">
             <h2 class="card-title pricing-card-title"><span class="text-info" name="modem_status"></span></h2>
             <table class="table">
               <tr>
-                <td>IP Address (IPV4):</td>
-                <td><h5><span name="ip_address">100.10.1.269</span>
-                </h5></td>
+                <td>Plan:</td>
+                <td><h6><span name="plan_name">100.10.1.269</span>
+                </h6></td>
               </tr>
               <tr>
-                <td>Session:</td>
-                <td><h5><span name="session"></span></h5></td>
+                <td>Expires On:</td>
+                <td><h6><span name="expiry">Loading..</span>
+                </h6></td>
               </tr>
-              <tr><td>Used:</td><td><h6><span name="data_session"></span></h6></td></tr>
+              <tr>
+                <td>Registered to:</td>
+                <td><h5><span name="registered"></span></h5></td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td><h6><span name="email-id"></span></h6></td>
+              </tr>
             </table>
             <!-- <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button> -->
           </div>
@@ -116,13 +96,19 @@
     <script src="../assets/js/popper.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/holder.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="../assets/js/chart-area-demo.js"></script>
+    <script src="../assets/js/chart-bar-demo.js"></script>
+
     <script>
       Holder.addTheme('thumb', {
         bg: '#55595c',
         fg: '#eceeef',
         text: 'Thumbnail'
       });
-      
+      $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
     <script>
     function getCookie(cname) {
@@ -144,39 +130,74 @@
     if(!response){
       document.location.replace("../")
     }
+    var creds = getCookie("storedCreds");
     populate(JSON.parse(response))
       function setVal(name,value){
         try{
           document.getElementsByName(name)[0].innerText = value;
         }catch{}
       }
-
+      
       function populate(response){
-        var dataleft = (response['usage']['total'].replace(" GB","")*1-response['usage']['used'].replace(" GB","")*1).toFixed(2);
-        var dataused = (response['usage']['used'].replace(" GB","").replace(" MB","")*1-response['session']['data'].replace(" GB","").replace(" MB","").substring(1)*1).toFixed(2);
-        document.getElementsByName('days_left')[0].setAttribute('title',"Expires on: <br>"+response['validity']['expiry_date']);
-        setVal('days_left',response['validity']["valid_for"].replace("Days",""));
-        setVal('days_total',response['validity']["total"]);
-        setVal('days_used',(response['validity']['total']*1-response['validity']['valid_for'].replace("Days","")**1).toFixed(0));
-        setVal('data_left',dataleft);
-        setVal('data_used',dataused);
-        setVal('data_total',response['usage']['total']);
-        setVal('data_session',response['session']['data'].substring(1));
-        setVal('ip_address',response['ip_addr']);
+        setVal('plan_name',response['plan']);
+        setVal('registered',response['name'].toUpperCase());
         setVal('account',response['name'].toUpperCase());
         setVal('phone',response['phone']);
-        if(response['session']){
-          setVal('modem_status',"Active")
-          setVal('session',response['session']['from'])
+        setVal('email-id',response['email']);
+        setVal('expiry',response['validity']['expiry_date'])
+        trends = {
+          labels:[],
+          data:[]
         }
-        var tooltp = "Reconciled: "+dataleft+' GB <br>Session: -'+response['session']['data'].substring(1);
-        console.log(tooltp);
-        document.getElementsByName('data_left')[0].setAttribute('title',tooltp);
-        setTimeout(()=>{
-          $(function () {
-          $('[data-toggle="tooltip"]').tooltip()
-        })
-        },2000)
+        for (w of response['weekly_trend']){
+          trends.labels.push(w.split(":")[0])
+          trends.data.push(w.split(":")[1])
+        }
+        console.log(trends)
+        renderChart(trends)
+      }
+
+      function renderChart(trends){
+        var ctx = document.getElementById("myBarChart");
+        var myLineChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: trends.labels,
+            datasets: [{
+              label: "GB",
+              backgroundColor: "rgba(2,117,216,1)",
+              borderColor: "rgba(2,117,216,1)",
+              data: trends.data,
+            }],
+          },
+          options: {
+            scales: {
+              xAxes: [{
+                time: {
+                  unit: 'day'
+                },
+                gridLines: {
+                  display: false
+                },
+                ticks: {
+                  maxTicksLimit: 6
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  maxTicksLimit: 5
+                },
+                gridLines: {
+                  display: true
+                }
+              }],
+            },
+            legend: {
+              display: false
+            }
+          }
+        });
       }
 
       var credentials = getCookie("storedCreds");
@@ -184,7 +205,6 @@
         cred = JSON.parse(credentials)
         setVal('uname',cred['username']);
       }
-      
     </script>
   
 

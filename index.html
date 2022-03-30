@@ -1,8 +1,8 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="KV - Balance API">
-    <meta name="author" content="">
+    <meta name="description" content="KV | ISP Dashboard">
+    <meta name="author" content="Elvis Tony">
     <link rel="icon" href="assets/favicon/favicon.ico">
 
     <title>KV Login</title>
@@ -91,7 +91,7 @@
       </div>
 
       <button class="btn btn-lg btn-primary btn-block" id="loginnow" type="button">Login</button>
-      <p class="mt-5 p-5 text-muted">Hosted on Github</p>
+      <p style="    margin-top: 20px;" class="mt-5 p-5 small text-muted">Developed by: LVZ<br>Hosted on Github</p>
     </form>
 
 <script>
@@ -105,10 +105,14 @@
   })
 
   document.getElementById("loginnow").addEventListener('click',()=>{
+    document.getElementById('loginnow').setAttribute('disabled',true)
     setTimeout(()=>{
       save2Cookies();
       performFetch();
-    },2000)
+    },1000)
+    setTimeout(()=>{
+      document.getElementById('loginnow').setAttribute('disabled',false)
+    },5000)
   })
 
   document.getElementsByName('show-pass')[0].addEventListener('click',()=>{
