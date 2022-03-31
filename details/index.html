@@ -6,7 +6,7 @@
     <meta name="author" content="Elvis Tony">
     <link rel="icon" href="../assets/favicon/favicon.ico">
 
-    <title>KV | Advanced</title>
+    <title>KV | Details</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
@@ -22,6 +22,7 @@
       <nav class="my-2 my-md-0 mr-md-3">
         <a class="btn btn-sm p-2 text-dark active" href="../dashboard/">Dashboard</a>
         <a class="btn btn-primary btn-sm p-2" href="#">Details</a>
+        <a class="btn btn-sm p-2 text-dark" href="../portal/">Portal</a>
         <a class="btn btn-sm btn-outline-primary" href="../">Logout</a>
       </nav>
 
@@ -151,7 +152,7 @@
         }
         for (w of response['weekly_trend']){
           trends.labels.push(w.split(":")[0])
-          trends.data.push(w.split(":")[1])
+          trends.data.push(((w.split(":")[1]*1)/1024).toFixed(2))
         }
         console.log(trends)
         renderChart(trends)

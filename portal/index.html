@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="KV | ISP Dashboard">
+    <meta name="author" content="Elvis Tony">
+    <link rel="icon" href="../assets/favicon/favicon.ico">
+
+    <title>KV | Portal</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/pricing.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    
+  </head>
+
+  <body>
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+      <h5 class="my-0 mr-md-auto font-weight-normal">KV - Dashboard<br><small class="float-right user" name="uname">user</small></h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="btn btn-sm p-2 text-dark" href="../dashboard/">Dashboard</a>
+        <a class="btn btn-sm p-2 text-dark" href="../details/">Details</a>
+        <a class="btn btn-sm p-2 btn-primary" href="#">Portal</a>
+        <a class="btn btn-sm btn-outline-primary" href="../">Logout</a>
+      </nav>
+      
+    </div>
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">Portal</h1>
+      <h6><span class="badge bg-info text-white" name="account"></span> - <span class="badge bg-info text-white" name="phone"></span></h6>
+      <p class="lead"></p>
+    </div>
+
+    <div class="container">
+      <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Credential Vault</h4>
+          </div>
+          <div class="card-body">
+            <h2 class="text-info">Simple Sign-in</h2>
+            <p class="text-left">Username:</p>
+            <input type="password" id="uname" readonly class="form-control mb-2" placeholder="Username" required="" autofocus="">
+            <small class="text-success" id="uname-copy">.</small>
+            <p class="text-left">Password:</p>
+            <input type="password" id="password" readonly class="form-control mb-2" placeholder="Password" required="">
+            <small class="text-success" id="password-copy">.</small>
+            <p class="text-small mt-3 small text-muted">Click each field to copy the credential to your clipboard!</p>
+          </div>
+        </div>
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Portal Access</h4>
+          </div>
+          <div class="card-body">
+            <img src="../assets/img/web_service.svg" class="img img-fluid m-2" alt="">
+            <button id="portal" class="btn btn-lg btn-block btn-danger m-2">Enter Portal</button>
+          </div>
+        </div>
+      </div>
+
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <img class="mb-2" src="../assets/favicon/favicon-32x32.png" alt="" width="24" height="24">
+          </div>
+        </div>
+        <small>Created by: LVZ</small>
+        <p><small>Hosted on Github</small></p>
+      </footer>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/holder.min.js"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+      
+    </script>
+    <script>
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+    var response = getCookie("data");
+    if(!response){
+      document.location.replace("../")
+    }
+    populate(JSON.parse(response))
+      function setVal(name,value){
+        try{
+          document.getElementsByName(name)[0].innerText = value;
+        }catch{}
+      }
+
+      function populate(response){
+        var credentials = getCookie("storedCreds");
+        if(credentials){
+          cred = JSON.parse(credentials)
+          document.getElementById('uname').value=cred['username'];
+          document.getElementById('password').value=cred['password'];
+        }
+        setVal('uname',cred['username']);
+        setVal('password',cred['password']);
+        setTimeout(()=>{
+          $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+          })
+        },2000)
+        document.getElementById('uname').addEventListener('click',()=>{
+          copyToClipboard(document.getElementById('uname'));
+          document.getElementById('uname-copy').innerText="Copied Username!"
+          setTimeout(()=>{
+            document.getElementById('uname-copy').innerText="."
+          },3000);
+        })
+        document.getElementById('password').addEventListener('click',()=>{
+          copyToClipboard(document.getElementById('password'));
+          document.getElementById('password-copy').innerText="Copied Password!"
+          setTimeout(()=>{
+            document.getElementById('password-copy').innerText="."
+          },3000);
+        })
+      }
+
+      document.getElementById('portal').addEventListener('click',()=>{
+        URL = "https://selfcare.keralavisionisp.com/Customer/Default.aspx"
+        tab = window.open(URL, '_blank');
+        tab.focus();
+        
+      })
+
+      function copyToClipboard(element) {
+        element.select();
+        element.setSelectionRange(0, 99999); 
+        navigator.clipboard.writeText(element.value);
+      }
+      
+      
+    </script>
+  
+
+</body></html>
