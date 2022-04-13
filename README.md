@@ -2,6 +2,8 @@
 
 A (Unofficial) Keralavision ISP Dashboard, take a quick peek into your usage stats!
 
+## Deployment
+[elvistony.dev/kv-ui](https://elvistony.dev/kv-ui/)
 
 ### Screenshots
 ![](assets/img/login.png)
