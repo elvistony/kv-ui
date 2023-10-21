@@ -105,13 +105,15 @@
   })
 
   document.getElementById("loginnow").addEventListener('click',()=>{
-    document.getElementById('loginnow').setAttribute('disabled',true)
+    document.getElementById('loginnow').setAttribute('disabled',true);
+    document.getElementById('loginnow').innerText="Loading ...";
     setTimeout(()=>{
       save2Cookies();
       performFetch();
     },1000)
     setTimeout(()=>{
-      document.getElementById('loginnow').setAttribute('disabled',false)
+      document.getElementById('loginnow').setAttribute('disabled',false);
+      document.getElementById('loginnow').innerText="Login";
     },5000)
   })
 
