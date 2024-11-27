@@ -1,5 +1,8 @@
-# DEPRECIATED
-`Depreciated: This currently will not work at all due to a complete rewrite and remodel of Keralavision's Portal using Dart (which uses some sort of encryption which I haven't managed to work around). Suggestions are welcome though!`
+# UNDER REWORK (Minimal Functionality Restored!)
+
+I've finally cracked the code, seemed simple to implement yet challenging to discover. The Website now works, certain data points are unavailable until I remap the new data structure.
+
+~~`Depreciated: This currently will not work at all due to a complete rewrite and remodel of Keralavision's Portal using Dart (which uses some sort of encryption which I haven't managed to work around). Suggestions are welcome though!`~~
 
 # Keralavision Dashboard
 
