@@ -150,7 +150,9 @@
     
   function performFetch(){
     var fetchUsage = new XMLHttpRequest();
-    var URL = "https://script.google.com/macros/s/AKfycby_XzX-cqB5DQtmE03XAqUYJv9_RF15JeXUZB56RKUUEoDMmaGqoJafl1tQD3bkZCr7/exec?u=USERNAME&p=PASSWORD".replace("USERNAME",username.value).replace("PASSWORD",password.value);
+    //var URL = "https://script.google.com/macros/s/AKfycby_XzX-cqB5DQtmE03XAqUYJv9_RF15JeXUZB56RKUUEoDMmaGqoJafl1tQD3bkZCr7/exec?u=USERNAME&p=PASSWORD".replace("USERNAME",username.value).replace("PASSWORD",password.value);
+    var URL = "https://script.google.com/macros/s/AKfycbyunB2U9Ck3mSv7Igf-kj4wJLMe7FTTloxRHY2ueUCjr-NTzpTjlsdPwfueP_xH3mju/exec?u=USERNAME&p=PASSWORD".replace("USERNAME",username.value).replace("PASSWORD",password.value);
+    
     //console.log(URL);
     fetchUsage.open("GET",URL);
     fetchUsage.send();
